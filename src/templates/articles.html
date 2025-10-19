@@ -1,0 +1,56 @@
+{{define "articles"}}
+
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Boutique - Articles</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="header">
+    <div class="logo">🛍️ GoShop</div>
+    <nav>
+        <a href="/">Accueil</a>
+        <a href="/ajouter">Ajouter un produit</a>
+    </nav>
+</header>
+
+<main class="product-grid">
+    {{range .}}
+    <article class="product-card">
+        <div class="img-container">
+            <img src="{{.Image}}" alt="{{.Nom}}">
+            {{if gt .Reduction 0}}
+            <span class="reduc-badge">-{{printf "%.0f" (mul .Reduction 100)}}%</span>
+            {{end}}
+        </div>
+
+```
+    <h2>{{.Nom}}</h2>
+    <p class="desc">{{.Description}}</p>
+
+    <div class="price">
+        {{if gt .Reduction 0}}
+        <span class="old">{{printf "%.2f" .Prix}} €</span>
+        <span class="new">{{printf "%.2f" (mul .Prix (sub 1 .Reduction))}} €</span>
+        {{else}}
+        <span class="new">{{printf "%.2f" .Prix}} €</span>
+        {{end}}
+    </div>
+
+    <p class="stock">Stock : {{.Stock}}</p>
+    <a class="btn" href="/article?id={{.ID}}">Voir le produit</a>
+</article>
+{{end}}
+```
+
+</main>
+
+<footer>
+    <p>© 2025 - Site web dynamique en Go | Projet pédagogique</p>
+</footer>
+</body>
+</html>
+{{end}}

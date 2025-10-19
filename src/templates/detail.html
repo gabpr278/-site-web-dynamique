@@ -1,0 +1,30 @@
+{{define "detail"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Nom}} - Détail</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <a href="/articles">← Retour à la boutique</a>
+        <h1>{{.Nom}}</h1>
+    </header>
+
+    <section class="detail">
+        <img src="{{.Image}}" alt="{{.Nom}}" class="detail-img">
+        <div class="detail-info">
+            <p>{{.Description}}</p>
+            <p>Prix : {{printf "%.2f" .Prix}} €</p>
+            {{if gt .Reduction 0}}
+                <p>Prix après réduction : <strong>{{printf "%.2f" (mul .Prix (sub 1 .Reduction))}} €</strong></p>
+                <p>Réduction : {{printf "%.0f" (mul .Reduction 100)}}%</p>
+            {{end}}
+            <p>Stock : {{.Stock}}</p>
+            <p>Ajouté le : {{.CreatedAt.Format "02/01/2006 15:04"}}</p>
+        </div>
+    </section>
+</body>
+</html>
+{{end}}
